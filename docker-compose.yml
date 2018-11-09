@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:4.1
+    container_name: mrivera_docker-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${DOCKER_MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: mongo_storage
+      MONGO_USERNAME: mrivera
+      MONGO_PASSWORD: ${DOCKER_MONGO_PASSWORD}
+    volumes:
+      - ./docker/mongo/entrypoint:/docker-entrypoint-initdb.d/
+      - ./docker/mongo/scripts:/scripts
+    networks: 
+      - default
+
+networks:
+  default:
+    name: mongo-test
